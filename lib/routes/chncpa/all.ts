@@ -24,12 +24,11 @@ export const route: Route = {
             const response1 = await ofetch(origin);
             const $1 = cheerio.load(response1);
             const pageNumStr = $1('#pagenum_per').attr('value') ? $1('#pagenum_per').attr('value') : $1('#pagenum_hd').attr('value');
-            const pageNum = pageNumStr ? parseInt(pageNumStr, 10) : 1;
+            const pageNum = pageNumStr ? Number.parseInt(pageNumStr, 10) : 1;
             const list = [];
             for (let i = 1; i <= pageNum; i++) {
                 list.push(i);
             }
-
 
             const pages = await Promise.all(
                 list.map(async (item) => {
@@ -39,8 +38,7 @@ export const route: Route = {
                 })
             );
 
-
-            for (let j = 0;j < pageNum;j++) {
+            for (let j = 0; j < pageNum; j++) {
                 const page = pages[j];
                 const $ = cheerio.load(page);
 
@@ -74,7 +72,7 @@ export const route: Route = {
             // 源标题
             title: 'ncpa上架演出',
             // 源链接
-            link: "https://m.chncpa.org/search/type.html?type=all&datestr=all",
+            link: 'https://m.chncpa.org/search/type.html?type=all&datestr=all',
             description: 'ncpa 售票信息',
             item: results,
         };
